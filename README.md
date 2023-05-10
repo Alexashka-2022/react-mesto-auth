@@ -16,4 +16,4 @@
 9. Работа с хуками
 
 ## Адрес проекта на GitHubPages
-https://alexashka-2022.github.io/mesto-react/index.html
+https://alexashka-2022.github.io/react-mesto-auth/index.html
