@@ -15,6 +15,7 @@ import Register from "./Register.js";
 import Login from './Login.js';
 import InfoTooltip from "./InfoTooltip.js";
 import auth from "../utils/Auth.js";
+import { usePopupClose } from "../hooks/usePopupClose.js";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
@@ -38,9 +39,13 @@ function App() {
   /*Стейт статуса для попапа информации*/
   const [statusTooltip, setStatusTooltip] = React.useState(false);
 
+  /*Вызываем универсальный хук 'usePopupClose' здесь,
+  чтобы в каждом компоненте не делать импорт и вызов. 
+  Передаем его пропсом в каждый компонент.*/
+  const closeAllPopupsByEscOverlay = usePopupClose(isOpen, closeAllPopups);
 
   /*Стейт вывода текста кнопок*/
-  const [isShowStatus, setShowStatus] = React.useState(true);
+  const [isShowStatus, setShowStatus] = React.useState(false);
 
   /*Получаем информацию о текущем пользавателе*/
   React.useEffect(() => {
@@ -74,28 +79,11 @@ function App() {
           setHeaderEmail(res.data.email);
           navigate("/");
         }
+      }).catch((err) => {
+        console.log(err);
       })
     }
   }, [navigate]);
-
-  /*Обработка закрытия по клику на кнопку 'Escape'*/
-  React.useEffect(() => {
-    function handleEscClose(event) {
-      if (event.key === "Escape") {
-        closeAllPopups();
-      }
-    }
-
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscClose);
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscClose);
-    }
-
-  }, [isOpen]);
-
 
   function handleEditAvatarClick() {
     setEditAvatarOpen(true);
@@ -147,13 +135,6 @@ function App() {
         }).catch((err) => {
           console.log(err);
         })
-    }
-  }
-
-  /*Общая функция закрытия всех попапов по клику на оверлей*/
-  function closeAllPopupsByOverlay(event) {
-    if (event.target === event.currentTarget) {
-      closeAllPopups();
     }
   }
 
@@ -305,14 +286,14 @@ function App() {
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
-          onCloseByOverlay={closeAllPopupsByOverlay}
+          onCloseByOverlay={closeAllPopupsByEscOverlay}
           onUpdateUser={handleUpdateUser}
           isShowStatus={isShowStatus}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
-          onCloseByOverlay={closeAllPopupsByOverlay}
+          onCloseByOverlay={closeAllPopupsByEscOverlay}
           onAddPlace={handleAddPlaceSubmit}
           isShowStatus={isShowStatus}
         />
@@ -320,19 +301,19 @@ function App() {
           card={selectedCard}
           isOpen={isImagePopupOpen}
           onClose={closeAllPopups}
-          onCloseByOverlay={closeAllPopupsByOverlay}
+          onCloseByOverlay={closeAllPopupsByEscOverlay}
         />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
-          onCloseByOverlay={closeAllPopupsByOverlay}
+          onCloseByOverlay={closeAllPopupsByEscOverlay}
           onUpdateAvatar={handleUpdateAvatar}
           isShowStatus={isShowStatus}
         />
         <PopupWithConfirmation
           isOpen={isConfirmDeletePopupOpen}
           onClose={closeAllPopups}
-          onCloseByOverlay={closeAllPopupsByOverlay}
+          onCloseByOverlay={closeAllPopupsByEscOverlay}
           onCardDelete={handleCardDelete}
           card={selectedCard}
           isShowStatus={isShowStatus}
@@ -342,7 +323,7 @@ function App() {
           statusTooltip={statusTooltip}
           isOpen={isInfoTooltipOpen}
           onClose={closeAllPopups}
-          onCloseByOverlay={closeAllPopupsByOverlay}
+          onCloseByOverlay={closeAllPopupsByEscOverlay}
         />
       </div>
     </CurrentUserContext.Provider>

@@ -12,7 +12,7 @@ function EditProfilePopup(props) {
     React.useEffect(() => {
         setName(currentUser.name);
         setDescription(currentUser.about);
-    }, [currentUser]);
+    }, [currentUser, props.isOpen]);
 
     function handleChangeName(evt) {
         setName(evt.target.value);
@@ -43,24 +43,24 @@ function EditProfilePopup(props) {
             buttonText='Сохранить'
         >
             <input className="popup__input popup__input_name"
-             type="text"
-             id="user"
-             name="userName"
-             placeholder="Имя"
-             minLength="2"
-             maxLength="40"
-             value={name || ""}
-             onChange={handleChangeName} required />
+                type="text"
+                id="user"
+                name="userName"
+                placeholder="Имя"
+                minLength="2"
+                maxLength="40"
+                value={name || ""}
+                onChange={handleChangeName} required />
             <span className="popup__error" id="user-error"></span>
             <input className="popup__input popup__input_specialization"
-             type="text"
-             id="specialization"
-             name="userData"
-             placeholder="Специальность"
-             minLength="2"
-             maxLength="200"
-             value={description || ""}
-             onChange={handleChangeDescription} required />
+                type="text"
+                id="specialization"
+                name="userData"
+                placeholder="Специальность"
+                minLength="2"
+                maxLength="200"
+                value={description || ""}
+                onChange={handleChangeDescription} required />
             <span className="popup__error" id="specialization-error"></span>
         </PopupWithForm>
     );

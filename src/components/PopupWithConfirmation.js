@@ -18,8 +18,8 @@ function PopupWithConfirmation(props) {
             onCloseByOverlay={props.onCloseByOverlay}
             onSubmit={handleSubmit}
             isShowStatus={props.isShowStatus}
-            showStatusText='Удаление'>
-        </PopupWithForm>
+            showStatusText='Удаление'
+        />
     );
 }
 
