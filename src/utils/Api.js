@@ -89,10 +89,10 @@ class Api {
 
 const api = new Api(
     {
-        baseUrl: "https://api.nomoreparties.sbs",
+        baseUrl: "https://api.shmakov.students.nomoreparties.sbs",
         headers: {
             "content-type": "application/json",
-            authorization: "a7b09761-28da-4b57-871e-f84fdfb6fd09",
+            authorization: "3c0f2337-cb97-47e6-8a3c-449284cb7fdc",
         },
     });
 
