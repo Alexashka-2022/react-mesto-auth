@@ -123,7 +123,6 @@ function App() {
   /*Обработка лайков карточек*/
   function handleCardLike(card) {
     const isLiked = card.likes.some((item) => item === currentUser._id);
-    console.log(card);
     if (isLiked) {
       api.deleteLike(card._id)
         .then((res) => {
