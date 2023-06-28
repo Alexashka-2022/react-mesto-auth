@@ -62,7 +62,7 @@ function App() {
   React.useEffect(() => {
     if (loggedIn) {
       api.getInitialCards().then((cardData) => {
-        setCards(cardData);
+        setCards(cardData.reverse());
       }).catch((err) => {
         console.log(err);
       })
@@ -77,13 +77,15 @@ function App() {
         if (res) {
           setLoggedIn(true);
           setHeaderEmail(res.email);
+          setCurrentUser(res);
           navigate("/");
         }
       }).catch((err) => {
         console.log(err);
       })
     }
-  }, [navigate, loggedIn]);
+  }, [navigate]);
+
 
   function handleEditAvatarClick() {
     setEditAvatarOpen(true);
@@ -218,6 +220,7 @@ function App() {
           localStorage.setItem("jwt", res.token);
           setLoggedIn(true);
           setHeaderEmail(userData.email);
+          setCurrentUser(userData);
           navigate("/");
         }
       }).catch((err) => {
