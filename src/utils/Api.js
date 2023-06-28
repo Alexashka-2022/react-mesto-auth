@@ -16,6 +16,10 @@ class Api {
             .then(this._checkStatus);
     }
 
+    setToken(token) {
+        this._headers.authorization = `Bearer ${token}`;
+    }
+
     getInitialCards() {
         return this._request(`${this._baseUrl}/cards`,
             {
@@ -92,7 +96,7 @@ const api = new Api(
         baseUrl: "https://api.shmakov.students.nomoreparties.sbs",
         headers: {
             "content-type": "application/json",
-            "authorization": `Bearer ${localStorage.getItem('jwt')}`,
+            //"authorization": `Bearer ${localStorage.getItem('jwt')}`,
         },
     });
 
