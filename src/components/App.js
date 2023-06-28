@@ -47,7 +47,7 @@ function App() {
   /*Стейт вывода текста кнопок*/
   const [isShowStatus, setShowStatus] = React.useState(false);
 
-  /*Получаем информацию о текущем пользавателе*/
+  /*Получаем информацию о текущем пользователе*/
   React.useEffect(() => {
     if (loggedIn) {
       api.getUserInfo().then((userInfo) => {
@@ -76,14 +76,14 @@ function App() {
       auth.getToken(jwt).then((res) => {
         if (res) {
           setLoggedIn(true);
-          setHeaderEmail(res.data.email);
+          setHeaderEmail(res.email);
           navigate("/");
         }
       }).catch((err) => {
         console.log(err);
       })
     }
-  }, [navigate]);
+  }, [navigate, loggedIn]);
 
   function handleEditAvatarClick() {
     setEditAvatarOpen(true);
@@ -119,7 +119,7 @@ function App() {
 
   /*Обработка лайков карточек*/
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(item => item === currentUser._id);
 
     if (isLiked) {
       api.deleteLike(card._id)
@@ -171,7 +171,7 @@ function App() {
     setShowStatus(true);
     api.editUserAvatar(userInfo["avatar"])
       .then((res) => {
-        setCurrentUser(res)
+        setCurrentUser(res);
         closeAllPopups();
       })
       .catch((err) => {
