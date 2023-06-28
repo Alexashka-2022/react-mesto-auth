@@ -96,6 +96,7 @@ const api = new Api(
         baseUrl: "https://api.shmakov.students.nomoreparties.sbs",
         headers: {
             "content-type": "application/json",
+            "authorization": ""
         },
     });
 
