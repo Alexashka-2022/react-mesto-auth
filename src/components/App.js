@@ -221,6 +221,7 @@ function App() {
           setLoggedIn(true);
           setHeaderEmail(userData.email);
           setCurrentUser(userData);
+          api.setToken(res.token);
           navigate("/");
         }
       }).catch((err) => {
